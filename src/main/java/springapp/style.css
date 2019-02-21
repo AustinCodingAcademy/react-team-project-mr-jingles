@@ -1,0 +1,21 @@
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+   
+}
+.bordered {
+	border: 1px solid #333333;
+}
+
+.padded {
+	padding: 10px;
+}
+
+.error {
+	color: red;
+}
+
+.right {
+	justify-content: left;
+}
