@@ -10,13 +10,13 @@
 			<div id="loginBox" >
 				<div class="bordered pure-u column">
 					
-					<div th:if="${param.error}" class="message-box-error">
+					<div data-th-if="${param.error}" class="message-box-error">
 				        Invalid username and password
 				    </div>
-				    <div th:if="${param.logout}" class="message-box-info">
+				    <div data-th-if="${param.logout}" class="message-box-info">
 				        You have been logged out
 				    </div>
-					<form th:action="@{/login}" method="post" class="pure-form pure-form-aligned">
+					<form data-th-action="@{/login}" method="post" class="pure-form pure-form-aligned">
 					    
 				       <div class="pure-control-group">
 				            <label for="username">Username</label>

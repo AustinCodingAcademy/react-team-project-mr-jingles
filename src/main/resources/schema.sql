@@ -10,7 +10,15 @@ create table pets (
 	name varchar(255),
 	gender varchar(255),
 	altered boolean,
-	client_id id,
-	FOREIGN KEY (client_id) REFERENCES client(id)
-	
+	client_id integer,
+	FOREIGN KEY (client_id) REFERENCES clients(id)
+
 );
+
+
+create table users (
+	id integer PRIMARY KEY AUTOINCREMENT,
+	username varchar(255),
+	encoded_password varchar(255),
+	role varchar(255)
+)

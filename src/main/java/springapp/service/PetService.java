@@ -23,6 +23,9 @@ public class PetService {
 		
 	}
 
+	public void deletePet(String id) {
+		petDao.delete(Integer.parseInt(id));
+	}
 
 	public Pet getPet(String id) {
 		return petDao.get(Integer.parseInt(id));

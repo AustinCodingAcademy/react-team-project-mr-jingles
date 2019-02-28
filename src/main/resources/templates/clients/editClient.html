@@ -16,16 +16,16 @@
 
 				</div>
 				<div class="pad">
-					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/clients}" th:object="${command}" method="post">
+					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/clients}" data-th-object="${command}" method="post">
 						<input type="hidden" data-th-field="*{id}"/>
-					    <div th:if="${saved}" class="message-box-info">
+					    <div data-th-if="${saved}" class="message-box-info">
 							Saved
 					    </div>
 
 						<div class="pure-control-group">
-				            <label for="id">Id</label>
+				            <label>Id</label>
 				            <span data-th-if="${command.id == null}"> New </span>
-  				            <span data-th-if="${command.id != null}" data-th-text="*{id}"> New </span>				            
+  				            <span name="id" data-th-if="${command.id != null}" data-th-text="*{id}"> New </span>
 				        </div>
 		
 				        <div class="pure-control-group">
@@ -45,9 +45,10 @@
 				            </textarea>
 				        </div>
 				        <div class="pure-control-group" data-th-if="${command.id != null}">
-				        	<label for="pets"> Pets</label>
-				        	<div>
-				        	<table class="fullWidth pure-table pure-table-horizontal" >
+							<div data-th-if="${deleted}" class="message-box-info">
+								Deleted successfully
+							</div>
+							<table class="fullWidth pure-table pure-table-horizontal" >
 									<thead>
 										<tr>
 											<th>Pet Id</th>

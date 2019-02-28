@@ -13,26 +13,26 @@
 					<a class="pure-button"  data-th-if="${fromClientPage}" data-th-href="@{/clients/{c}(c=${command.client.id})}">Cancel</a>
 					<a class="pure-button"  data-th-if="${!fromClientPage}" data-th-href="@{/pets}">Cancel</a>
 					
-					<a class="pure-button" data-th-if="${command.id != null}" data-th-href="@{'/clients/'+${command?.id}+'/delete'}">Delete</a>
+					<a class="pure-button" data-th-if="${command.id != null}" data-th-href="@{'/pets/'+${command?.id}+'/delete'}">Delete</a>
 
 				</div>
 				<div class="pad">
-					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/pets}" th:object="${command}" method="post">
+					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/pets}" data-th-object="${command}" method="post">
 						<input type="hidden" data-th-field="*{id}"/>
 						<input type="hidden" data-th-field="*{clientId}"/>
 						<input type="hidden" data-th-field="${fromClientPage}"/>
 						
-					    <div th:if="${saved}" class="message-box-info">
+					    <div data-th-if="${saved}" class="message-box-info">
 							Saved
 					    </div>
 
 						<div class="pure-control-group">
-				            <label for="id">Client</label>
+				            <label>Client</label>
 				            <span data-th-text="${command.client.name}"> client </span>
 				        </div>
 				        
 						<div class="pure-control-group">
-				            <label for="id">Id</label>
+				            <label>Id</label>
 				            <span data-th-if="${command.id == null}"> New </span>
   				            <span data-th-if="${command.id != null}" data-th-text="*{id}"> New </span>				            
 				        </div>
@@ -43,11 +43,11 @@
 				        </div>
 
 				        <div class="pure-control-group">
-				            <label for="gender">Gender</label>
-							<select th:field="*{gender}">
-							    <option th:value="''"></option>
-							    <option th:value="'Female'" th:text="Female"></option>
-							    <option th:value="'Male'" th:text="Male"></option>
+				            <label>Gender</label>
+							<select data-th-field="*{gender}">
+							    <option data-th-value="''"></option>
+							    <option data-th-value="'Female'" data-th-text="Female"></option>
+							    <option data-th-value="'Male'" data-th-text="Male"></option>
 							</select>
 				        </div>
 						
