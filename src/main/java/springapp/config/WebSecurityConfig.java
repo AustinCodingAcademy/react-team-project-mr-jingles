@@ -25,22 +25,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    
 	@Autowired
 	private SecurityService securityService;
-	
+
+	/**
+	 * This method confiures the general http security settings
+	 *
+	 * {@inheritDoc}
+	 */
 	@Override 
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
+				// allow pages under the css folder and home page to be accessible to every on
                 .antMatchers("/css/*","/").permitAll()
-                .anyRequest().authenticated()
+				// but all other pages should only be accessible for logged in users
+				.anyRequest().authenticated()
             .and()
+            // we configure the form login page below
             .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                .loginPage("/login") // we specify what the login url should be
+                .defaultSuccessUrl("/") // and the default page to go to after a user logs in
+                .permitAll() // all users are allowed to access the login page
             .and()
+             // below we configure the logout mechanism
             .logout()
+                // this is the url that will trigger the logout mechanism in the security frame work
             	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .permitAll();
+                .permitAll(); // all users are allowed to logout
     }
 
 	
@@ -53,7 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		
 		// we are using the NoPasswordEncoder because we want the passwords to be in clear 
-		// in production applications this would be a very bad idea and we would use something like the BCryptPasswordEncoder.
+		// in production applications this would be a very bad idea
+        // and we would use something like the BCryptPasswordEncoder.
+        // Using the BcryptPasswordEncoder, will hash the password the user types in,
+        // and compare the hash against what the security service returns
+        // plain text passwords and encrypted passwords should not be stored in the database.
+        // You should only store a non-revirsable hash of the password.
 
 		return NoOpPasswordEncoder.getInstance();
 		//return new BCryptPasswordEncoder();
