@@ -19,6 +19,10 @@ import org.springframework.stereotype.Repository;
 
 import springapp.domain.Client;
 
+/**
+ * This is the client dao that is responsible for managing the clients info in the databsae.
+ * The dao acts as the 'gatekeeper' between the rest of the code and the database
+ */
 @Repository
 @Scope("singleton")
 public class ClientDao {
