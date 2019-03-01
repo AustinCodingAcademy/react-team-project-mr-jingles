@@ -21,4 +21,6 @@ create table users (
 	username varchar(255),
 	encoded_password varchar(255),
 	role varchar(255)
-)
+);
+
+insert into users values (null, 'admin', 'password', 'SUPER_ADMIN');
