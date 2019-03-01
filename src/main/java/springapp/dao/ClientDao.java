@@ -89,7 +89,12 @@ public class ClientDao {
 		return get(id);
 	}
 	
+	
 	public void delete(int id) {
+		
+		jdbcTemplate.update("DELETE FROM pets WHERE client_id = ?",
+				new Object[] {id});
+		
 		
 		jdbcTemplate.update("DELETE FROM clients WHERE id = ?",
 				new Object[] {id});
