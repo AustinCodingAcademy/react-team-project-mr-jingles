@@ -40,7 +40,7 @@ public class ClientController {
      * @param model the model to populate for merging  with the view
      * @return the client list page template
      */
-	 @PreAuthorize("hasAuthority('LIST_OWNERS')")
+	 @PreAuthorize("hasAuthority('LIST_CLIENTS')")
 	 @GetMapping
 	 public String listClients(Model model) {
         List<Client> clients = clientService.getClients();
@@ -55,11 +55,13 @@ public class ClientController {
      * @param model the model to populate for merging with the view
      * @return the client edit page template
      */
-	 @PreAuthorize("hasAuthority('GET_OWNER')")
+	 @PreAuthorize("hasAuthority('GET_CLIENT')")
 	 @GetMapping("/{id}")
-	 public String getClient(@PathVariable("id") String id, Model model) {
+	 public String getClient(@PathVariable("id") String id, Model model, boolean saved) {
 
-	    // we could have used a different path for handling the create page but this approach uses the same
+		 model.addAttribute("saved", saved);
+
+		 // we could have used a different path for handling the create page but this approach uses the same
         // template for both creating a new client and editing and existing client
 	    if(id.equals("new")) {
 	        // create an empty command object to merge with the view template
@@ -80,12 +82,12 @@ public class ClientController {
     /**
      * Saves the updates to a client based on the command that was sent from the client side
      * @param command the command corresponding with how the client object should be updated/created
-     * @param model the model to populate, and that will be merged in with the view template to draw the page
+     * @param redirectAttributes holds the attribtues that we may want to pass to the get page after a save
      * @return the edit client view template
      */
-	 @PreAuthorize("hasAuthority('SAVE_OWNER')")
+	 @PreAuthorize("hasAuthority('SAVE_CLIENT')")
 	 @PostMapping
-	 public String saveClient(ClientCommand command, Model model) {
+	 public String saveClient(ClientCommand command, RedirectAttributes redirectAttributes) {
 
 	     //NOTE: if we want to capture errors correctly, we would wrap the following code in a try/catch
          // and the catch would add a nice error message to the mode
@@ -95,17 +97,11 @@ public class ClientController {
          // the service returns the new client object back to us after the save
 	     Client client = clientService.saveClient(command);
 
-	     // we create a new command object from the client object the service returned
-	     model.addAttribute("command", new ClientCommand(client));
-
-	     // we get the pets for te client
-	     model.addAttribute("pets", clientService.getPets(client.getId()) );
-
 	     // we add in a "saved" attribute so we can print a nice message indicating a save was successfull
-		 model.addAttribute("saved", true);
+		 redirectAttributes.addAttribute("saved", true);
 
 
-	     return "clients/editClient";
+	     return "redirect:/clients/"+client.getId();
 		  
      }
 
@@ -116,7 +112,7 @@ public class ClientController {
      *                           some attributes to the list page
      * @return redirect path to the list clients page
      */
-     @PreAuthorize("hasAuthority('DELETE_OWNER')")
+     @PreAuthorize("hasAuthority('DELETE_CLIENT')")
 	 @GetMapping("/{id}/delete")
 	 public String deleteClient(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
          // NOTE to handle exceptions, we would wrap the following code in a try/catch

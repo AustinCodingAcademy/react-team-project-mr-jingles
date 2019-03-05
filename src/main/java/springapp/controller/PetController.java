@@ -73,16 +73,20 @@ public class PetController {
 	@PreAuthorize("hasAuthority('GET_PET')")
 	@GetMapping("/{id}")
 	public String getPet(@PathVariable("id") String id,
+						 Model model,
 						 @RequestParam(name="clientId", required=false) Integer clientId,
-						 Model model) {
+						 @RequestParam(name="saved", required = false) boolean saved) {
+
 
 	    // we used this as flag so we can tell on the view template how we got here?
         // if a client id wass passed in, then we got to this page from the client edit page.
         // other wise we got here from the list pets page
         // this information can be used to figure out what page we should exit to
 		model.addAttribute("fromClientPage", clientId != null);
+        model.addAttribute("saved", saved);
 
-		// if the id passed in is 'new' and no clientId is passed in, then we have a problem ....
+
+        // if the id passed in is 'new' and no clientId is passed in, then we have a problem ....
 		if(id.equals("new") && clientId == null) {
 			throw new IllegalArgumentException("Cannot add a new pet without a clientid");
 		}
@@ -121,32 +125,24 @@ public class PetController {
     /**
      * Save the pet info, or create a new pet based on the command
      * @param command the command to get the pet info from
-     * @param model the model to populate so we can merge with the view template
+     * @param redirectAttributes used to pass attributes to the get page after saving a pet
      * @param fromClientPage a flag so we know if this originated from the client page, or the pet list page
      * @return the view template to use once the save is successful
      */
 	@PreAuthorize("hasAuthority('SAVE_PET')")
 	@PostMapping
-	 public String savePet(PetCommand command, Model model, boolean fromClientPage) {
-		  model.addAttribute("fromClientPage", fromClientPage);
+	 public String savePet(PetCommand command, RedirectAttributes redirectAttributes, boolean fromClientPage) {
 
-		  // we pass in the pet command to the service to update or create a new pet
-	      Pet pet = petService.savePet(command);
+        // we pass in the pet command to the service to update or create a new pet
+        Pet pet = petService.savePet(command);
 
-	      // we get a new command instance based on the latest pet info
-          // if this was creating new pet, then the updated command should have an id,
-	      command = new PetCommand(pet);
 
-	      // we get a new client instance based on the pet's client id, and add that client instance to the pet command
-	      Client client = clientService.getClient(pet.getClientId());
-	      command.setClient(client);
+        redirectAttributes.addAttribute("saved", true);
+        if(fromClientPage) {
+            redirectAttributes.addAttribute("clientId", pet.getClientId());
+        }
+        return "redirect:/pets/"+pet.getId();
 
-	      // then we add the petCommand to the model
-	      model.addAttribute("command", command);
-	      // and we add a flag that the save was successful
-		  model.addAttribute("saved", true);
-	      return "pets/editPet";
-		  
     }
 
     /**
