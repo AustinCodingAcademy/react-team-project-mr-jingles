@@ -20,7 +20,7 @@
 					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/pets}" data-th-object="${command}" method="post">
 						<input type="hidden" data-th-field="*{id}"/>
 						<input type="hidden" data-th-field="*{clientId}"/>
-						<input type="hidden" data-th-field="${fromClientPage}"/>
+						<input type="hidden" id="fromClientPage" name="fromClientPage" data-th-value="${fromClientPage}"/>
 						
 					    <div data-th-if="${saved}" class="message-box-info">
 							Saved

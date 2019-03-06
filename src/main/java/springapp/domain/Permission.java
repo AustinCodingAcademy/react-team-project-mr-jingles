@@ -8,10 +8,10 @@ public enum Permission implements GrantedAuthority{
 	SAVE_PET,
 	GET_PET,
 	
-	LIST_OWNERS,
-	DELETE_OWNER,
-	SAVE_OWNER,
-	GET_OWNER;
+	LIST_CLIENTS,
+	DELETE_CLIENT,
+	SAVE_CLIENT,
+	GET_CLIENT;
 	
 
 	@Override
