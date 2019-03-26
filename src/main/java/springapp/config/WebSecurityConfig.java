@@ -40,6 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// but all other pages should only be accessible for logged in users
 				.anyRequest().authenticated()
             .and()
+            .csrf()
+            	.ignoringAntMatchers("/api/*")            
+			.and()
             // we configure the form login page below
             .formLogin()
                 .loginPage("/login") // we specify what the login url should be
