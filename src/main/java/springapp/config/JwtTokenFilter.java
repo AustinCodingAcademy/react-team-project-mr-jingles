@@ -44,17 +44,21 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        filterChain.doFilter(request, response);
+        if(authentication != null) {
+            filterChain.doFilter(request, response);
+        }
 
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        if(new AntPathMatcher().match("/api/login", request.getServletPath())){
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        if(pathMatcher.match("/api/login", request.getServletPath())){
             return true;
-        } else {
+        } else if(pathMatcher.match("/api/**", request.getServletPath())) {
             return false;
+        } else {
+            return true;
         }
-
     }
 }
