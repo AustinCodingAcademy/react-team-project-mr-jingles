@@ -90,7 +90,7 @@ public class ClientRestController {
 	     */
 		 @PreAuthorize("hasAuthority('SAVE_CLIENT')")
 		 @PutMapping
-		 public Client updateClient(ClientCommand command) {
+		 public Client updateClient(@RequestBody ClientCommand command) {
 			 
 			 if(command.getId() == null) {
 				 throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot update a client without an id");

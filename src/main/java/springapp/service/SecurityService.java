@@ -121,7 +121,7 @@ public class SecurityService implements UserDetailsService {
 
 		Date now = new Date();
 		Date expiration = new Date(now.getTime()+jwtDuration);
-
+		
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(now)
