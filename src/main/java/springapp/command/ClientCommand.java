@@ -1,5 +1,7 @@
 package springapp.command;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import springapp.domain.Client;
 
 /**
@@ -26,6 +28,14 @@ public class ClientCommand {
 		}
 	}
 
+	/** 
+	 * A default constructor that is used by jackson when deserializing a json object to a pojo
+	 */
+	@JsonCreator
+	private ClientCommand() {
+		
+	}
+	
 	/**
 	 * Set the id of the client
 	 * @param id the client id, null if this client is not persisted to the database (ie a new client)
