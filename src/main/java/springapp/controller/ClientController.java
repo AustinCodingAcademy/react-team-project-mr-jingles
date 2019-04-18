@@ -114,7 +114,7 @@ public class ClientController {
      */
      @PreAuthorize("hasAuthority('DELETE_CLIENT')")
 	 @GetMapping("/{id}/delete")
-	 public String deleteClient(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
+	 public String deleteClient(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
          // NOTE to handle exceptions, we would wrap the following code in a try/catch
          // and in the catch forward to a different page
 

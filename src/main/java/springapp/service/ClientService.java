@@ -37,8 +37,12 @@ public class ClientService {
 	}
 
 	
-	public void deleteClient(String id) {
-		clientDao.delete(Integer.parseInt(id));
+	public Client deleteClient(Integer id) {
+		Client client = getClient(id);
+		if(client != null) {
+			clientDao.delete(id);
+		}
+		return null;
 	}
 
 	
@@ -53,3 +57,5 @@ public class ClientService {
 		return petDao.listForClient(clientId);
 	}
 }
+
+	

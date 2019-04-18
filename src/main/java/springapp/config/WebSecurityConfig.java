@@ -2,15 +2,20 @@ package springapp.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import springapp.service.SecurityService;
@@ -21,39 +26,71 @@ import springapp.service.SecurityService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
    
 	@Autowired
 	private SecurityService securityService;
 
-	/**
-	 * This method confiures the general http security settings
-	 *
-	 * {@inheritDoc}
-	 */
-	@Override 
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-				// allow pages under the css folder and home page to be accessible to every on
-                .antMatchers("/css/*","/").permitAll()
-				// but all other pages should only be accessible for logged in users
-				.anyRequest().authenticated()
-            .and()
-            // we configure the form login page below
-            .formLogin()
-                .loginPage("/login") // we specify what the login url should be
-                .defaultSuccessUrl("/") // and the default page to go to after a user logs in
-                .permitAll() // all users are allowed to access the login page
-            .and()
-             // below we configure the logout mechanism
-            .logout()
-                // this is the url that will trigger the logout mechanism in the security frame work
-            	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .permitAll(); // all users are allowed to logout
-    }
+	@Configuration
+	@Order(1)
+	public static class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	
+		@Autowired
+		JwtTokenFilter jwtTokenFilter;
+
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			http
+				.antMatcher("/api/**")
+                    .authorizeRequests()
+                    .antMatchers("/api/login").permitAll()
+					.anyRequest().authenticated()
+				.and()
+					.csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+
+            ;
+
+		}
+	}
+
+	@Configuration
+	@Order(2)
+	public static class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
+		/**
+		 * This method configures the general http security settings
+		 *
+		 * {@inheritDoc}
+		 */
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+				.authorizeRequests()
+					// allow pages under the css folder and home page to be accessible to every on
+					.antMatchers("/css/*","/").permitAll()
+					// but all other pages should only be accessible for logged in users
+					.anyRequest().authenticated()
+				.and()
+				.csrf()
+					.ignoringAntMatchers("/api/*")
+				.and()
+				// we configure the form login page below
+				.formLogin()
+					.loginPage("/login") // we specify what the login url should be
+					.defaultSuccessUrl("/") // and the default page to go to after a user logs in
+					.permitAll() // all users are allowed to access the login page
+				.and()
+				 // below we configure the logout mechanism
+				.logout()
+					// this is the url that will trigger the logout mechanism in the security frame work
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.permitAll(); // all users are allowed to logout
+		}
+	}
+
+
 	/**
 	 * Configure the password encoder
 	 * @return the password encoder to use when encoding user passwords
@@ -81,5 +118,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	authProvider.setUserDetailsService(securityService);
     	authProvider.setPasswordEncoder(passwordEncoder());
     	return authProvider;
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
