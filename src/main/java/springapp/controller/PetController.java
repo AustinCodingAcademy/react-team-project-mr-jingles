@@ -154,7 +154,7 @@ public class PetController {
      */
 	@PreAuthorize("hasAuthority('DELETE_PET')")
 	@GetMapping("/{id}/delete")
-	public String deletePet(@PathVariable("id") String id,
+	public String deletePet(@PathVariable("id") int id,
 							@RequestParam(name="clientId", required=false) Integer clientId,
 							RedirectAttributes redirectAttributes) {
 
