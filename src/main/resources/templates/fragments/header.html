@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	<div class="content">
+		<div id="nav" class="pure-u column" data-th-fragment="header">
+	        <div class="nav-inner">
+	            <div class="pure-menu">
+	                <ul class="pure-menu-list" sec:authorize="isAuthenticated()">
+	                    <li class="pure-menu-item">
+	                    	<a href="#" data-th-href="@{'/'}" class="pure-menu-link">Home</a>
+                    	</li>
+	                    <li class="pure-menu-item">
+	                    	<a href="#" data-th-href="@{'/clients'}" class="pure-menu-link">Clients</a></li>
+	                    <li class="pure-menu-item">
+	                    	<a href="#" data-th-href="@{'/pets'}" class="pure-menu-link">Pets</a>
+                    	</li>
+	                    <li class="pure-menu-item">
+	                    	<a href="#" data-th-href="@{'/appointments'}" class="pure-menu-link">Appointments</a>
+                    	</li>
+	                    <li class="pure-menu-item">
+	                    	<a href="#" data-th-href="@{'/logout'}" class="pure-menu-link">Sign Out</a>
+                    	</li>
+	                </ul>
+	                <ul class="pure-menu-list" sec:authorize="isAnonymous()">
+	                    <li class="pure-menu-item"><a href="#" data-th-href="@{'/'}" class="pure-menu-link">Home</a></li>
+	                    <li class="pure-menu-item"><a href="#" data-th-href="@{'/login'}" class="pure-menu-link">Sign In</a></li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	    <div id="mainBody">
+	    
+	    </div>
+	</div>
+
+</body>
+</html>
+
+

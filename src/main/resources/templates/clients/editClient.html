@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<header th:replace="fragments/head.html :: head" >
+</header>
+<body>
+	<div id="container" class="content pure-g" >
+		<header th:replace="fragments/header.html :: header" >
+		</header>
+		<div id="mainBody" class="pure-u pure-g column">
+			<div id="content" class="pure-u-1">
+				<div class="pad right">
+					<button type="submit" form="theForm" class="pure-button"  value="Save">Save</button>
+					<a class="pure-button" data-th-href="@{/clients}">Cancel</a>
+					<a class="pure-button" data-th-if="${command.id != null}" data-th-href="@{/clients/{c}/delete(c=${command?.id})}">Delete</a>
+					<a class="pure-button" data-th-if="${command.id != null}" data-th-href="@{/pets/new?clientId={c}(c=${command?.id})}">Add Pet</a>
+
+				</div>
+				<div class="pad">
+					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/clients}" data-th-object="${command}" method="post">
+						<input type="hidden" data-th-field="*{id}"/>
+					    <div data-th-if="${saved}" class="message-box-info">
+							Saved
+					    </div>
+
+						<div class="pure-control-group">
+				            <label>Id</label>
+				            <span data-th-if="${command.id == null}"> New </span>
+  				            <span name="id" data-th-if="${command.id != null}" data-th-text="*{id}"> New </span>
+				        </div>
+		
+				        <div class="pure-control-group">
+				            <label for="name">Name</label>
+				            <input id="name" name="name" type="text" data-th-field="*{name}">
+				        </div>
+
+				        <div class="pure-control-group">
+				            <label for="phone">Phone</label>
+				            <input id="phone" name="phone" type="text" data-th-field="*{phoneNumber}">
+				        </div>
+						
+						
+				        <div class="pure-control-group">
+				            <label for="address">Address</label>
+				            <textarea id="address" name="address" type="text" data-th-field="*{address}">
+				            </textarea>
+				        </div>
+				        <div class="pure-control-group" data-th-if="${command.id != null}">
+							<div data-th-if="${deleted}" class="message-box-info">
+								Deleted successfully
+							</div>
+							<table class="fullWidth pure-table pure-table-horizontal" >
+									<thead>
+										<tr>
+											<th>Pet Id</th>
+											<th>Name</th>
+											<th>Gender</th>
+										</tr>
+									</thead>
+									<tbody data-th-if="${pets.size() > 0}">	
+										<tr data-th-each="pet : ${pets}">
+											<td> <a data-th-href="@{/pets/{pid}?clientId={cid}(pid=${pet.id}, cid=${command.id})}" data-th-text="${pet.id}">...</a></td>
+											<td data-th-text="${pet.name}">...</td>
+											<td data-th-text="${pet.gender}">...</td>
+										</tr>
+									</tbody>
+									<tbody data-th-if="${pets.size() == 0}">
+										<tr>
+											<td  colspan=3>No associated pets</td>
+										</tr>
+									</tbody>
+								</table>
+				        	</div>
+				        </div>
+						
+						
+					</form>
+					
+							
+				</div>
+			</div>
+		</div>
+    </div>
+</body>
+</html>
+
+
+
+

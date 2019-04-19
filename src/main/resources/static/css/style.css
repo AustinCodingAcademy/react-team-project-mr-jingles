@@ -1,0 +1,83 @@
+html, body {
+   color: #333;
+   height: 100%
+}
+
+
+#container {
+	display: grid;
+
+  	grid-template-areas:
+    "nav mainBody";
+    
+  grid-template-columns: 130px 1fr;
+  grid-template-rows: 1fr;
+
+  height: 100%;
+}
+
+#nav {
+	grid-area: nav;
+  	padding-left: 5px ;
+  	background-color: #555;
+  }
+
+#mainBody {
+	grid-area: mainBody;
+	display: grid;
+}
+
+#loginBox {
+    display: grid;
+	align-items: center;
+	justify-items: center; /* adjusted */
+}
+
+#loginBox > div {
+	border: 1px solid #444;
+	padding: 10px;
+	border-radius: 4px;
+	
+}
+
+
+.fullWidth {
+	width: 100%;
+}
+
+
+.pad {
+	padding: 10px;
+}
+
+.margin {
+	margin: 10px;	
+}
+.right {
+	text-align: right
+}
+
+.message-box-error,
+.message-box-info,
+.message-box-success {
+	margin: 5px 0px;
+	display: block;
+	padding: 10px;
+	text-align: center;
+	color: white;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}	
+
+.message-box-error {
+	background: rgb(202, 60, 60); /* this is a maroon */
+}
+.message-box-info{
+	background: rgb(66, 184, 221); /* this is a light blue */
+}
+.message-box-success {
+	background: rgb(28, 184, 65); /* this is a green */
+}
+
+
+.

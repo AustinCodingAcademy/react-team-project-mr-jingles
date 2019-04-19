@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<header th:replace="fragments/head.html :: head" >
+</header>
+<body>
+	<div id="container" class="content pure-g" >
+		<header th:replace="fragments/header.html :: header" >
+		</header>
+		<div id="mainBody" class="pure-u column">
+			<div id="loginBox" >
+				<div class="bordered pure-u column">
+					
+					<div data-th-if="${param.error}" class="message-box-error">
+				        Invalid username and password
+				    </div>
+				    <div data-th-if="${param.logout}" class="message-box-info">
+				        You have been logged out
+				    </div>
+					<form data-th-action="@{/login}" method="post" class="pure-form pure-form-aligned">
+					    
+				       <div class="pure-control-group">
+				            <label for="username">Username</label>
+				            <input id="username" name="username" type="text" placeholder="Username">
+				        </div>
+		
+				        <div class="pure-control-group">
+				            <label for="password">Password</label>
+				            <input id="password" name="password" type="password" placeholder="Password">
+				        </div>
+				        <div class="pure-controls">
+		      	            <button type="submit" class="pure-button pure-button-primary">Sign In</button>
+			        	</div>
+					</form>
+					</div>
+		        </div>
+	        </div>
+        </div>
+    </div>
+</body>
+</html>

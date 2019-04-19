@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<header th:replace="fragments/head.html :: head" >
+</header>
+<body>
+	<div id="container" class="content pure-g" >
+		<header th:replace="fragments/header.html :: header" >
+		</header>
+		<div id="mainBody" class="pure-u pure-g column">
+			<div id="content" class="pure-u-1">
+				<div class="pad right">
+					<button type="submit" form="theForm" class="pure-button"  value="Save">Save</button>
+					<a class="pure-button"  data-th-if="${fromClientPage}" data-th-href="@{/clients/{c}(c=${command.client.id})}">Cancel</a>
+					<a class="pure-button"  data-th-if="${!fromClientPage}" data-th-href="@{/pets}">Cancel</a>
+					
+					<a class="pure-button" data-th-if="${command.id != null}" data-th-href="@{'/pets/'+${command?.id}+'/delete'}">Delete</a>
+
+				</div>
+				<div class="pad">
+					<form class="pure-form pure-form-aligned" id="theForm" action="#" data-th-action="@{/pets}" data-th-object="${command}" method="post">
+						<input type="hidden" data-th-field="*{id}"/>
+						<input type="hidden" data-th-field="*{clientId}"/>
+						<input type="hidden" id="fromClientPage" name="fromClientPage" data-th-value="${fromClientPage}"/>
+						
+					    <div data-th-if="${saved}" class="message-box-info">
+							Saved
+					    </div>
+
+						<div class="pure-control-group">
+				            <label>Client</label>
+				            <span data-th-text="${command.client.name}"> client </span>
+				        </div>
+				        
+						<div class="pure-control-group">
+				            <label>Id</label>
+				            <span data-th-if="${command.id == null}"> New </span>
+  				            <span data-th-if="${command.id != null}" data-th-text="*{id}"> New </span>				            
+				        </div>
+		
+				        <div class="pure-control-group">
+				            <label for="name">Name</label>
+				            <input id="name" name="name" type="text" data-th-field="*{name}">
+				        </div>
+
+				        <div class="pure-control-group">
+				            <label>Gender</label>
+							<select data-th-field="*{gender}">
+							    <option data-th-value="''"></option>
+							    <option data-th-value="'Female'" data-th-text="Female"></option>
+							    <option data-th-value="'Male'" data-th-text="Male"></option>
+							</select>
+				        </div>
+						
+						
+				        <div class="pure-control-group">
+				            <label for="altered">Altered</label>
+				            <input id="altered" name="altered" type="checkbox" data-th-field="*{altered}">
+				        </div>
+				        
+					</form>
+					
+							
+				</div>
+			</div>
+		</div>
+    </div>
+</body>
+</html>
+
+
+
+
