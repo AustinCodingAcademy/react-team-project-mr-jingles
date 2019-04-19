@@ -23,12 +23,20 @@ public class PetService {
 		
 	}
 
-	public void deletePet(String id) {
-		petDao.delete(Integer.parseInt(id));
+	public Pet deletePet(Integer id) {
+		Pet pet = getPet(id);
+		if(pet != null) {
+			petDao.delete(id);
+		}
+		return null;
 	}
 
 	public Pet getPet(String id) {
 		return petDao.get(Integer.parseInt(id));
+	}
+	
+	public Pet getPet(Integer id) {
+		return petDao.get(id);
 	}
 	
 	public Pet savePet(PetCommand command) {
