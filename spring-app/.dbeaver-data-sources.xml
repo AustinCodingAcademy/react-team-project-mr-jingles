@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="sqlite_jdbc-16a5b83dc19-6cebd54cea709930" provider="generic" driver="sqlite_jdbc" name="SQLite - spring-app.db" save-password="true" read-only="false">
+		<connection server="" database="C:\Users\Joseph_C_Stewart\Desktop\mr-jingles\react-team-project-mr-jingles\spring-app\spring-app.db" url="jdbc:sqlite:C:\Users\Joseph_C_Stewart\Desktop\mr-jingles\react-team-project-mr-jingles\spring-app\spring-app.db" type="dev"/>
+		<virtual-meta-data>
+			<container name="model">
+				<entity name="users">
+					<constraint name="PRIMARY" type="VIRTUAL KEY">
+						<attribute name="id"/>
+						<attribute name="username"/>
+						<attribute name="encoded_password"/>
+						<attribute name="role"/>
+					</constraint>
+				</entity>
+			</container>
+		</virtual-meta-data>
+	</data-source>
+	<filters/>
+</data-sources>
