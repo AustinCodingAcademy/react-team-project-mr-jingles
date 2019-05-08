@@ -9,7 +9,7 @@ class HeaderMenu extends Component {
       { label: 'Home', link: '#home', active: true },
       { label: 'About', link: '#about' },
       { label: 'Clients', link: 'clients' },
-      { label: 'Pets', link: '#pets' },
+      { label: 'Pets', link: 'pets' },
       { label: 'Appointments', link: '#appointments' }
     ];
 return(
