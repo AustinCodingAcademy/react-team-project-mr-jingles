@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter, Route, Link } from "react-router-dom";
-
-import Clients from './Clients'
-
 import searchicon from '../search_icon.png';
 
 class Headermenu extends Component {
