@@ -108,15 +108,15 @@ public class SecurityService implements UserDetailsService {
 			}
 			return new UsernamePasswordAuthenticationToken(username, null, permissions);
 		} catch (Exception e) {
-//			logger.info("invalid token", e);
-			logger.info("invalid token");
+			logger.info("invalid token", e);
+// 			logger.info("invalid token");
 		}
-//		return null;
-		List<Permission> permissions = new ArrayList<>();
-		for(Permission permission: Permission.values()) {
-			permissions.add(permission);
-		}
-		return new UsernamePasswordAuthenticationToken("admin", null, permissions);
+		return null;
+// 		List<Permission> permissions = new ArrayList<>();
+// 		for(Permission permission: Permission.values()) {
+// 			permissions.add(permission);
+// 		}
+// 		return new UsernamePasswordAuthenticationToken("admin", null, permissions);
 	}
 
 	private String createToken(String userName){
