@@ -11,7 +11,7 @@ class App extends React.Component{
   render = () => {
     return (
       <div>
-      <HeaderMenu></HeaderMenu>
+      <HeaderMenu/>
       <BrowserRouter><Route exact path="/clients" component={Clients} /></BrowserRouter>
       <BrowserRouter><Route exact path="/pets" component={Pets} /></BrowserRouter>
       </div>

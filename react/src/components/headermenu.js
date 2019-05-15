@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter, Route, Link } from "react-router-dom";
-
-import Clients from './Clients'
-
 import searchicon from '../search_icon.png';
 
 class Headermenu extends Component {
@@ -11,9 +7,16 @@ class Headermenu extends Component {
         super();
 
         this.state = {
-            showForm: false
+            showForm: false,
+            loggedIn: !!localStorage.getItem('JWT_TOKEN')
         };
     }
+
+    logout = () => {
+        localStorage.clear();
+        this.setState({ loggedIn: false })
+        window.location.href = '/'
+      }
 
     showForm() {
         this.setState({
@@ -29,6 +32,7 @@ class Headermenu extends Component {
         ) : '';
 
         let linksMarkup = this.props.links.map((link, index) => {
+           
             let linkMarkup = link.active ? (
                 <a className="menu__link menu__link--active" href={link.link}>{link.label}</a>
             ) : (
@@ -51,8 +55,7 @@ class Headermenu extends Component {
                 <div className="menu__right">
                     <ul className="menu__list">
                         {linksMarkup}
-                    </ul>
-
+                    </ul>                    
                     <button onClick={this.showForm.bind(this)} style={{
                     backgroundImage: 'url(' + searchicon + ')'
                     }} className="menu__search-button"></button>
