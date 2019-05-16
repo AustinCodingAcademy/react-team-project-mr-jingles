@@ -14,7 +14,8 @@ toggleeditclientModal = async(parentobj) =>
         await fetch('/api/clients', {
         method: "PUT",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         },
         body: JSON.stringify({
             "id":parentobj.state.editclientData.id,

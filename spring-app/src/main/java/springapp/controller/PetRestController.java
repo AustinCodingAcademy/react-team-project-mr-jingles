@@ -46,6 +46,17 @@ public class PetRestController {
 	 public List<Pet> listPets() {
         return petService.getPets();
     }
+	 
+	 /**
+	     * Returns the list of pets
+	     * @return the list of pets
+	     */
+		 @PreAuthorize("hasAuthority('LIST_PETS')")
+		 @GetMapping("/client/{clientid}")
+		 public List<Pet> listPetsforClient(@PathVariable("clientid") int clientid) {
+	        return petService.getPetsforClient(clientid);
+	    }
+
 
 
     /**

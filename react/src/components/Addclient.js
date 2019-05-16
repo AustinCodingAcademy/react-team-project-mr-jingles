@@ -25,18 +25,19 @@ toggleNewClientModal()
 addClient = async (thisobj) =>  
 {    
     await fetch('/api/clients', {
-      method: "POST",
+      method: "POST",     
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
       },
       body: JSON.stringify({
         "name": this.state.newclientData.name,
         "address" : this.state.newclientData.address,
         "phoneNumber":this.state.newclientData.phoneNumber
       })
-    });
+    })
 
-    thisobj.fetchClients();
+    this.props.thisobj.fetchClients();
 
     this.setState({
     newclientModal:false,newclientData : {
@@ -82,7 +83,7 @@ addClient = async (thisobj) =>
         </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.addClient.bind(this, this.props.thisobj)}>Add Client</Button>{' '}
+          <Button color="primary" onClick={this.addClient.bind(this.props.thisobj)}>Add Client</Button>{' '}
           <Button color="secondary" onClick={this.toggleNewClientModal.bind(this)}>Cancel</Button>
         </ModalFooter>
       </Modal>
