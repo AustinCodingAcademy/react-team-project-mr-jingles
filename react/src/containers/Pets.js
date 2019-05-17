@@ -5,12 +5,12 @@ import PetList from '../components/PetList';
 export default class Pets extends Component {
   state = {
     'pets': []
-  }
+    }
 
   componentDidMount = async () => {
     const response = await fetch('/api/pets', { method: 'GET' });
     const pets = await response.json();
-    this.setState({ 'pets': pets })
+    this.setState({ 'pets': pets });    
   }
 
   addPet = async (e) => {
@@ -31,6 +31,7 @@ export default class Pets extends Component {
         "clientId": e.target.elements.clientId.value
       })
     });
+    
     const response = await fetch('/api/pets');
     const pets = await response.json();
     this.setState({ 'pets': pets });
@@ -40,7 +41,7 @@ export default class Pets extends Component {
     return (
       <div>
         <h1>Pets</h1>
-        <AddPetForm addPet={this.addPet} />
+        <AddPetForm addPet={this.addPet}/>
         <PetList pets={this.state.pets} />
       </div>
     )
