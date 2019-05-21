@@ -5,13 +5,21 @@ import searchicon from '../search_icon.png';
 class Headermenu extends Component {
     constructor() {
         super();
-
         this.state = {
-            showForm: false
+            showForm: false,
+            loggedIn: !!localStorage.getItem('JWT_TOKEN')
         };
-    }
+    }   
 
-    showForm() {
+    logout = async() => {
+
+        localStorage.clear();
+        this.setState({ loggedIn: false })
+        window.location.href = '/'
+       }
+
+    showForm() {      
+       
         this.setState({
             showForm: !this.state.showForm
         });
@@ -25,17 +33,54 @@ class Headermenu extends Component {
         ) : '';
 
         let linksMarkup = this.props.links.map((link, index) => {
-            let linkMarkup = link.active ? (
+           if((link.showforloggedinUser && this.state.loggedIn))
+           {
+
+            if(link.link==='logout')
+            {
+                let linkMarkup = link.active ?  (
+                    <a className="menu__link menu__link--active" href={link.link}  onClick={this.logout}>{link.label}</a>
+                ) : (
+                    <a className="menu__link" href={link.link} onClick={this.logout}>{link.label}</a>
+                );
+                return (                
+                    <li key={index} className="menu__list-item">
+                        {linkMarkup}
+                    </li>
+                );
+            }
+            else
+            {
+                let linkMarkup = link.active ?  (
+                    <a className="menu__link menu__link--active" href={link.link}>{link.label}</a>
+                ) : (
+                    <a className="menu__link" href={link.link}>{link.label}</a>
+                );
+
+                return (                
+                    <li key={index} className="menu__list-item">
+                        {linkMarkup}
+                    </li>
+                );
+            }
+           
+           }
+           else if((link.ShowfornologgedinUser && !this.state.loggedIn) || (link.showforloggedinUser && link.ShowfornologgedinUser))
+           {         
+            let linkMarkup = link.active ?  (
                 <a className="menu__link menu__link--active" href={link.link}>{link.label}</a>
             ) : (
                 <a className="menu__link" href={link.link}>{link.label}</a>
             );
 
-            return (
+            return (                
                 <li key={index} className="menu__list-item">
                     {linkMarkup}
                 </li>
             );
+           
+           
+           }
         });
 
         return (
@@ -47,8 +92,7 @@ class Headermenu extends Component {
                 <div className="menu__right">
                     <ul className="menu__list">
                         {linksMarkup}
-                    </ul>
-
+                    </ul>                    
                     <button onClick={this.showForm.bind(this)} style={{
                     backgroundImage: 'url(' + searchicon + ')'
                     }} className="menu__search-button"></button>

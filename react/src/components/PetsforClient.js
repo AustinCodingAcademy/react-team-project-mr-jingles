@@ -1,8 +1,15 @@
 import React from 'react';
 import '../App.css';
-import {Table, Button,Collapse} from 'reactstrap'
+
+import {Button, Modal, ModalHeader,ModalBody, Table} from 'reactstrap'
 
 class PetsforClient extends React.Component{ 
+
+  toggleshowPets = async(parentobj) =>
+{
+  parentobj.setState({openpets:false})  
+ 
+}  
 
 
 render() {  
@@ -13,11 +20,7 @@ render() {
                 <td>{pet.id}</td>
                 <td>{pet.name}</td>
                 <td>{pet.gender}</td>
-                <td>{pet.altered}</td>
-                <td>
-                  <Button color="success" size="sm" className="mr-2" >Edit</Button>
-                  <Button color="danger" size="sm" className="mr-2">Delete</Button>
-                </td>
+                <td>{pet.altered}</td>               
               </tr>
     )
   });
@@ -26,22 +29,25 @@ render() {
 return ( 
   
 
-<div>
-  
-  <Table striped borderless hover variant="dark" responsive hidden={this.props.collapse} >
-    <thead >
-      <tr >
-        <th>#</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Altered</th>
-      </tr>
-    </thead>
-    <tbody>       
-       {pets}       
-    </tbody>
-  </Table>
-</div>
+<Modal isOpen={this.props.openpets} toggle={this.toggleshowPets.bind(this, this.props.thisobj)}>
+                <ModalHeader toggle={this.toggleshowPets.bind(this,this.props.thisobj)}>Pets for Client</ModalHeader>
+                <ModalBody>  
+              <Table striped borderless hover variant="dark" responsive >
+                <thead >
+                  <tr >
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Altered</th>
+                  </tr>
+                </thead>
+                <tbody>       
+                  {pets}       
+                </tbody>
+              </Table>
+            </ModalBody>    
+  </Modal> 
+
 );
 }
 }
