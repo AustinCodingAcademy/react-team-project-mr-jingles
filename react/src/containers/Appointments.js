@@ -11,7 +11,8 @@ export default class Appointments extends Component {
     componentDidMount = async () => {
         const response = await fetch('/api/appointments', { method: 'GET' });
         const appointments = await response.json();
-        this.setState({ 'appointments': appointments });    
+        this.setState({ 'appointments': appointments });
+        console.log(this.state.appointments);
       }
 
       addAppointment = async (e) => {
