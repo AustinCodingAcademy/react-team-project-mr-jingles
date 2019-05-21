@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
-
+import Calendar from '../components/Calendar.js'
 // for popup
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
