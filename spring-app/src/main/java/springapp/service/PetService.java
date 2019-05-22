@@ -22,6 +22,11 @@ public class PetService {
 		return petDao.list();
 		
 	}
+	
+	public List<Pet> getPetsforClient(Integer clientId){
+		return petDao.listForClient(clientId);
+		
+	}
 
 	public Pet deletePet(Integer id) {
 		Pet pet = getPet(id);

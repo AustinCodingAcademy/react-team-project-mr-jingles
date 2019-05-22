@@ -9,6 +9,7 @@ import PetsforClient  from './PetsforClient'
 class Clients extends React.Component{ 
     state ={
         clients:[],
+        loggedIn: !!localStorage.getItem('JWT_TOKEN'),
         editclientModal:false,
         editclientData:{id:'', name:'', phoneNumber:'', address:''},
         pets:[],
@@ -17,14 +18,20 @@ class Clients extends React.Component{
 
 }
 
-componentDidMount = () => {
+componentDidMount = async() => {
   this.fetchClients();
 }
 
 fetchClients = async () => {   
-  const response = await fetch('/api/clients');
-  const clients = await response.json();
-  this.setState({ clients: clients });
+  console.log(this.state.loggedIn);
+  const response = await fetch('/api/clients', {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+    }
+  })
+  const clientsfromapi = await response.json();
+  console.log(clientsfromapi.length); 
+  this.setState({ clients: clientsfromapi });
 }
 
 fetchpets = async (id) => {   
@@ -37,7 +44,11 @@ fetchpets = async (id) => {
 
 fetchpetforclient = async(id) =>
 {
-  const response = await fetch('/api/pets/client/'+id);
+  const response = await fetch('/api/pets/client/'+id, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+    }
+  })
   const pets = await response.json();
   this.setState({ pets: pets });
 
@@ -70,7 +81,10 @@ deleteClientsandAssociatedPets = async(id) =>
 { 
   this.state.pets.map((pet) => async() => {
     await fetch('/api/pets/' + pet.id, {
-      method: 'DELETE'
+      method: 'DELETE' ,
+       headers: {
+        'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+       }
       }).then(res => {
           return res;
       }).catch(err => err);
@@ -82,8 +96,11 @@ deleteClientsandAssociatedPets = async(id) =>
 deleteClient = async(id) =>
 {
   await fetch('/api/clients/' + id, {
-    method: 'DELETE'
-    }).then(res => {
+    method: 'DELETE' ,
+       headers: {
+        'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+       }
+      }).then(res => {
         return res;
     }).catch(err => err);
     this.fetchClients();
