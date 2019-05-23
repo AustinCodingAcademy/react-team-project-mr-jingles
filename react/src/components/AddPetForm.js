@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 
 export default class AddPetForm extends Component {
   state = {
-    'clients': []
+    clients: JSON.parse( localStorage.getItem( "clientsforPetForm" ) )
+    
     }
 
-  componentDidMount = async () => {
-    const response = await fetch('/api/clients', { method: 'GET' });
-    const clients = await response.json();
-    this.setState({ 'clients': clients }); 
-
-  }
+  // componentDidMount = async () => {
+  //   if(!!localStorage.getItem('clientsforPetForm')){
+  //     const cliensParse = JSON.parse( localStorage.getItem( "clientsforPetForm" ) );
+  //     this.setState( { cliensParse } );
+  //   }
+  // }
   render() {
-    let clientsOption = this.state.clients;
-    let optionItems = clientsOption.map((client) =>
+    console.log(this.state.clients.length);
+    let optionItems = this.state.clients.map((client) =>
                 <option key={client.id}>{client.name}</option>
             );
     return (
