@@ -12,10 +12,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Calendar extends React.Component{ 
 state = {
-    // array holding all appointments
-    appointments:[],
-    // for the modal, false since it's closed by default
-    modal: false,
     // blank variables for date and owner chosen in modal
     selectedDate: '',
     selectedOwner: ''
@@ -23,7 +19,7 @@ state = {
 
 // empty for now
 componentDidMount() {
-    
+  
 }
 
 toggle = arg => {
@@ -55,11 +51,10 @@ render () {
         <React.Fragment>
         <FullCalendar defaultView="dayGridMonth" plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} 
             // set at componentDidMount
-            events={this.state.appointments}
+            events={this.props.appointments}
             // dateClick is called whenever a date that isn't an event is clicked
-                dateClick={this.handleDateClick}/>
+            dateClick={() => this.props.modalCallback(true)}/>
         
-        <AddAppointment modal={this.state.modal}/>
 
 
         </React.Fragment>
@@ -89,9 +84,8 @@ confirmDate = arg => {
 
 handleDateClick = arg => {
     // open the modal
-    this.setState({modal:true});
     // pick the selected date for the creation to use
-    AddAppointment.setState({modal:true});
+    this.props.modalCallback(true);
     this.setState({selectedDate: arg.date});
 }
 
