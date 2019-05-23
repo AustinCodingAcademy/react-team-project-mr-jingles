@@ -31,6 +31,7 @@ fetchClients = async () => {
   })
   
   const clientsfromapi = await response.json();
+  localStorage.setItem('clientsforPetForm', JSON.stringify(clientsfromapi));
   console.log(clientsfromapi.length); 
   this.setState({ clients: clientsfromapi });
 }
