@@ -17,7 +17,7 @@ export default class AddAppointment extends React.Component {
         // array holding all appointments
         appointments:[],
         // for the modal, false since it's closed by default
-        modal: false,
+        modal: this.props.modal,
         // blank variables for date and owner chosen in modal
         selectedDate: '',
         selectedOwner: ''

@@ -5,12 +5,23 @@ import Calendar from '../components/Calendar';
 export default class Appointments extends Component {
 
     state = {
-        'appointments': []
+        'appointments': [],
+        'modal': false
+    }
+
+    modalCallback = () => {
+      console.log("here");
+      this.setState({'modal': true});
     }
 
     componentDidMount = async () => {
-        const response = await fetch('/api/appointments', { method: 'GET' });
-        const appointments = await response.json();
+
+      const response = await fetch('/api/appointments', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+        }
+      })
+      const appointments = await response.json();
         this.setState({ 'appointments': appointments });
         console.log(this.state.appointments);
       }
@@ -45,14 +56,15 @@ export default class Appointments extends Component {
         const response = await fetch('/api/appointments');
         const appointments = await response.json();
         this.setState({ 'appointments': appointments });
+        return appointments;
       }
 
       render() {
         return (
           <div>
             <h1>Calendar</h1>
-            <Calendar/>
-            <AddAppointment/>
+            <Calendar appointments={this.state.appointments} modal = {this.state.modal} modalCallback={this.modalCallback}/>
+            <AddAppointment modal={this.props.modal}/>
           </div>
         )
       }

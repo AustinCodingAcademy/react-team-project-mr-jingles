@@ -10,7 +10,7 @@ class HeaderMenu extends Component {
       { label: 'About', link: '#about', active: false , showforloggedinUser:true, ShowfornologgedinUser: true },
       { label: 'Clients', link: 'clients', active: false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Pets', link: 'pets', active: false , showforloggedinUser:true, ShowfornologgedinUser: false },
-      { label: 'Appointments', link: '#appointments' , active: false , showforloggedinUser:true, ShowfornologgedinUser: false },
+      { label: 'Appointments', link: 'appointments' , active: false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Login', link: 'login', active: false , showforloggedinUser:false, ShowfornologgedinUser: true },
       { label: 'Logout', link: 'logout', active: false , showforloggedinUser:true, ShowfornologgedinUser: false }
     ];
