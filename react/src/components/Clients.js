@@ -29,6 +29,7 @@ fetchClients = async () => {
       'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
     }
   })
+  
   const clientsfromapi = await response.json();
   localStorage.setItem('clientsforPetForm', JSON.stringify(clientsfromapi));
   console.log(clientsfromapi.length); 
