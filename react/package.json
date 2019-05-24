@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^4.1.0",
+    "@fullcalendar/daygrid": "^4.1.0",
+    "@fullcalendar/interaction": "^4.1.0",
+    "@fullcalendar/react": "^4.1.0",
+    "@fullcalendar/timegrid": "^4.1.0",
     "availity-reactstrap-validation": "^2.5.2",
     "bootstrap": "^4.3.1",
+    "fullcalendar": "^3.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
@@ -26,5 +32,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:8080"
+  "proxy": "https://aca-dell-petapp.ausvdc02.pcf.dell.com"
 }
