@@ -8,23 +8,23 @@ self.__precacheManifest = [
     "url": "/react-team-project-mr-jingles/static/js/runtime~main.1beb3bbb.js"
   },
   {
-    "revision": "9d9a71a38cf77b85132c",
-    "url": "/react-team-project-mr-jingles/static/js/main.0ab26204.chunk.js"
+    "revision": "170098079a24463336ce",
+    "url": "/react-team-project-mr-jingles/static/js/main.6aeb19ba.chunk.js"
   },
   {
-    "revision": "fb347b34559b6a91518c",
-    "url": "/react-team-project-mr-jingles/static/js/2.1a50233e.chunk.js"
+    "revision": "0aeff072d848341b561d",
+    "url": "/react-team-project-mr-jingles/static/js/2.797def89.chunk.js"
   },
   {
-    "revision": "9d9a71a38cf77b85132c",
+    "revision": "170098079a24463336ce",
     "url": "/react-team-project-mr-jingles/static/css/main.07d2bab4.chunk.css"
   },
   {
-    "revision": "fb347b34559b6a91518c",
+    "revision": "0aeff072d848341b561d",
     "url": "/react-team-project-mr-jingles/static/css/2.c29d13d7.chunk.css"
   },
   {
-    "revision": "1a76b0b0e9153d548e9343bb0592930f",
+    "revision": "1d2dafffe4ed09124004580c7f21275a",
     "url": "/react-team-project-mr-jingles/index.html"
   }
 ];
