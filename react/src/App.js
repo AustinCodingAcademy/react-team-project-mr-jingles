@@ -14,7 +14,7 @@ class App extends React.Component{
     return (
       <div>
       <HeaderMenu/>
-      <BrowserRouter basename={'/react-team-project-mr-jingles'}>
+      <BrowserRouter basename={'/react-team-project-mr-jingles/'}>
         <Route exact path="/clients" component={Clients} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/pets" component={Pets} />
