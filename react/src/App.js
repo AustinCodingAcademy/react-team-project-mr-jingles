@@ -6,14 +6,17 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import Clients from './components/Clients'
 import Pets from './containers/Pets'
-import Appointments from './containers/Appointments'
 import Login from './containers/Login';
 
 class App extends React.Component{ 
+
+  state ={
+   activelink:localStorage.getItem('active_link')
+}
   render = () => {
     return (
       <div>
-      <HeaderMenu/>
+      <HeaderMenu activelink={this.state.activelink}/>
       <BrowserRouter basename={'/react-team-project-mr-jingles/'}>
         <Route exact path="/clients" component={Clients} />
         <Route exact path="/login" component={Login} />
@@ -21,6 +24,7 @@ class App extends React.Component{
         <Route exact path="/appointments" component={Appointments} />
       </BrowserRouter>
       </div>
+
     );
   }
 }
