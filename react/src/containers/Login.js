@@ -13,7 +13,7 @@ export default class Login extends Component {
     // e.target.elements.username.value => 'kevin'
     // e.target.elements.password.value => 'hello123'
     console.log(e);
-    const response = await fetch('/api/login', {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
