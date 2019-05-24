@@ -9,7 +9,7 @@ export default class Pets extends Component {
 
   componentDidMount = async () => {
     try{
-      const response = await fetch('/api/pets', { 
+      const response = await fetch(`${process.env.REACT_APP_API}/api/pets`, { 
         method: 'GET',
         headers: {
         'Authorization':`Bearer ${localStorage.getItem('JWT_TOKEN')}`
@@ -26,7 +26,7 @@ export default class Pets extends Component {
     e.preventDefault();
 
     try {
-      const petResponse = await fetch('/api/pets', {
+      const petResponse = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

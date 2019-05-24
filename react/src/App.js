@@ -14,10 +14,12 @@ class App extends React.Component{
     return (
       <div>
       <HeaderMenu/>
-      <BrowserRouter><Route exact path="/clients" component={Clients} />
-      <Route exact path="/login" component={Login} /></BrowserRouter>
-      <BrowserRouter><Route exact path="/pets" component={Pets} /></BrowserRouter>
-      <BrowserRouter><Route exact path="/appointments" component={Appointments} /></BrowserRouter>
+      <BrowserRouter basename={'/react-team-project-mr-jingles'}>
+        <Route exact path="/clients" component={Clients} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/pets" component={Pets} />
+        <Route exact path="/appointments" component={Appointments} />
+      </BrowserRouter>
       </div>
     );
   }
