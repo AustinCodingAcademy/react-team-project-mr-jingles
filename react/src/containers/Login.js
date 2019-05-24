@@ -28,7 +28,7 @@ export default class Login extends Component {
     console.log(token);
     localStorage.setItem('JWT_TOKEN', token);
     this.setState({ loggedIn: true });   
-    window.location.href = '/'
+    window.location.href = 'home';
   }
 
   render() {
