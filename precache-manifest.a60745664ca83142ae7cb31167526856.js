@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/react-team-project-mr-jingles/static/js/runtime~main.1beb3bbb.js"
   },
   {
-    "revision": "bd1fa67f07962b3fb326",
-    "url": "/react-team-project-mr-jingles/static/js/main.64a54c63.chunk.js"
+    "revision": "9d9a71a38cf77b85132c",
+    "url": "/react-team-project-mr-jingles/static/js/main.0ab26204.chunk.js"
   },
   {
     "revision": "fb347b34559b6a91518c",
     "url": "/react-team-project-mr-jingles/static/js/2.1a50233e.chunk.js"
   },
   {
-    "revision": "bd1fa67f07962b3fb326",
+    "revision": "9d9a71a38cf77b85132c",
     "url": "/react-team-project-mr-jingles/static/css/main.07d2bab4.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/react-team-project-mr-jingles/static/css/2.c29d13d7.chunk.css"
   },
   {
-    "revision": "ba4b632bb0ce2cd5f2ad5f4e04292dbf",
+    "revision": "1a76b0b0e9153d548e9343bb0592930f",
     "url": "/react-team-project-mr-jingles/index.html"
   }
 ];

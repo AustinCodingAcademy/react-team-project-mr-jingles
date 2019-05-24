@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-team-project-mr-jingles/precache-manifest.9713cdf70345dda235d85fcbb5f5f38f.js"
+  "/react-team-project-mr-jingles/precache-manifest.a60745664ca83142ae7cb31167526856.js"
 );
 
 workbox.clientsClaim();
