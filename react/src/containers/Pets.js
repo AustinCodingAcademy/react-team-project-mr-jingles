@@ -5,51 +5,52 @@ import PetList from '../components/PetList';
 export default class Pets extends Component {
   state = {
     pets: []
-    }
+      }
+
 
   componentDidMount = async () => {
-    try{
-      const response = await fetch(`${process.env.REACT_APP_API}/api/pets`, { 
-        method: 'GET',
-        headers: {
-        'Authorization':`Bearer ${localStorage.getItem('JWT_TOKEN')}`
-        }
-      });
-      const pets = await response.json();
-      this.setState({ pets : pets }); 
-    } catch (error){
-      console.error(error)
-    }
+    this.fetchPets();
   }
 
-  addPet = async (e) => {
-    e.preventDefault();
-
-    try {
-      const petResponse = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':`Bearer ${localStorage.getItem('JWT_TOKEN')}`
-        },
-        body: JSON.stringify({
-          "name": e.target.elements.name.value,
-          "gender" : e.target.elements.gender.value,
-          "altered": e.target.elements.altered.value,
-          "clientId": e.target.elements.clientId.value
-      }) 
+  fetchPets = async (e) => {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+      }
     })
-    const pets = await petResponse.json();
-    this.setState({pets: pets});
-    } catch (error){
-      console.error(error)
-    }
+    
+    const pets = await response.json();
+    this.setState({ pets: pets });
   }
+
+  // addPet = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const petResponse = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization':`Bearer ${localStorage.getItem('JWT_TOKEN')}`
+  //       },
+  //       body: JSON.stringify({
+  //         "name": this.state.petForm.Data.name,
+  //         "gender" : this.state.petForm.gender,
+  //         "altered": this.state.petForm.altered,
+  //         "clientId": this.state.petForm.clientId
+  //     }) 
+  //   })
+  //   const pets = await petResponse.json();
+  //   this.setState({pets: pets});
+  //   } catch (error){
+  //     console.error(error)
+  //   }
+  // }
 
   render() {
     return (
       <div className="App container">
-        <AddPetForm addPet={this.addPet} pets={this.state.pets}/>        
+        <AddPetForm addPet={this.addPet}/>        
         <PetList pets={this.state.pets} />
       </div>
     )
