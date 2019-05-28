@@ -24,7 +24,7 @@ toggleNewClientModal()
 
 addClient = async (thisobj) =>  
 {    
-    await fetch('/api/clients', {
+    await fetch(`${process.env.REACT_APP_API}/api/clients`, {
       method: "POST",     
       headers: {
         'Content-Type': 'application/json',

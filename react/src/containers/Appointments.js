@@ -15,15 +15,14 @@ export default class Appointments extends Component {
     }
 
     componentDidMount = async () => {
-
-      const response = await fetch('/api/appointments', {
+      const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
       })
       const appointments = await response.json();
-        this.setState({ 'appointments': appointments });
-        console.log(this.state.appointments);
+      this.setState({ 'appointments': appointments });
+      console.log(this.state.appointments);
       }
 
       addAppointment = async (e) => {
@@ -32,7 +31,7 @@ export default class Appointments extends Component {
         console.log('gender', e.target.elements.gender.value)
         console.log('altered', e.target.elements.altered.value)
     
-        await fetch('/api/appointments', {
+        await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -47,13 +46,13 @@ export default class Appointments extends Component {
           })
         });
         
-        const response = await fetch('/api/appointments');
+        const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`);
         const appointments = await response.json();
         this.setState({ 'appointments': appointments });
       }
 
       fetchAppointments = async () => {   
-        const response = await fetch('/api/appointments');
+        const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`);
         const appointments = await response.json();
         this.setState({ 'appointments': appointments });
         return appointments;
