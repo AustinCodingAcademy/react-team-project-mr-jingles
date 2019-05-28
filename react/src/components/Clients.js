@@ -24,7 +24,7 @@ componentDidMount = async() => {
 
 fetchClients = async () => {   
   console.log(this.state.loggedIn);
-  const response = await fetch('/api/clients', {
+  const response = await fetch(`${process.env.REACT_APP_API}/api/clients`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
     }
@@ -46,7 +46,7 @@ fetchpets = async (id) => {
 
 fetchpetforclient = async(id) =>
 {
-  const response = await fetch('/api/pets/client/'+id, {
+  const response = await fetch(`${process.env.REACT_APP_API}/api/pets/client/`+id, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
     }
@@ -83,7 +83,7 @@ checkClienttobedeleted = async (id) =>{
 deleteClientsandAssociatedPets = async(id) =>
 { 
   this.state.pets.map((pet) => async() => {
-    await fetch('/api/pets/' + pet.id, {
+    await fetch(`${process.env.REACT_APP_API}/api/pets/` + pet.id, {
       method: 'DELETE' ,
        headers: {
         'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
@@ -98,7 +98,7 @@ deleteClientsandAssociatedPets = async(id) =>
 
 deleteClient = async(id) =>
 {
-  await fetch('/api/clients/' + id, {
+  await fetch(`${process.env.REACT_APP_API}/api/clients/` + id, {
     method: 'DELETE' ,
        headers: {
         'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
