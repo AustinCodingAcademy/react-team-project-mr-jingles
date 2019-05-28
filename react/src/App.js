@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Clients from './components/Clients'
 import Pets from './containers/Pets'
 import Login from './containers/Login';
+import Appointments from './containers/Appointments';
 
 class App extends React.Component{ 
 

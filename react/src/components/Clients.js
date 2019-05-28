@@ -33,7 +33,7 @@ fetchClients = async () => {
   const clientsfromapi = await response.json();
   localStorage.setItem('clientsforPetForm', JSON.stringify(clientsfromapi));
   console.log(clientsfromapi.length); 
-  this.setState({ clients: clientsfromapi });
+  this.setState({ clients: clientsfromapi }); 
 }
 
 fetchpets = async (id) => {   
@@ -54,6 +54,7 @@ fetchpetforclient = async(id) =>
   const pets = await response.json();
   this.setState({ pets: pets });
 
+  
 }
 
 

@@ -31,9 +31,50 @@ class Headermenu extends Component {
         });
     }
 
+    searchpage= (e) =>
+    {   
+        var searchvalue=e.target.value;  
+        if(localStorage.getItem('active_link')==='clients')   
+        {
+            var filteredclients=[];
+            if(searchvalue!=="")
+            {
+                filteredclients= this.props.state.clients.filter((client) =>
+                {
+                
+                
+                    var flag=client.name.toLowerCase().search(searchvalue);
+                    if(flag===0)
+                    return client;
+                });
+           }
+           else
+                filteredclients=this.props.state.clients;
+            this.props.setState({ clients: filteredclients });
+        }
+
+        else if(localStorage.getItem('active_link')==='clients')   
+        {
+            var filteredpets=[];
+            if(searchvalue!=="")
+            {
+                filteredpets= this.props.state.pets.filter((client) =>
+                {
+                
+                
+                    var flag=client.name.toLowerCase().search(searchvalue);
+                    if(flag===0)
+                    return client;
+                });
+           }
+           else
+           filteredpets=this.props.state.pets;
+            this.props.setState({ pets: filteredpets });
+        }
+    }
+
     clickMenu = (linklabel) =>{      
        
-        debugger;
         console.log("came into click menu");
         this.setState({
             activemenutem: linklabel
@@ -44,7 +85,7 @@ class Headermenu extends Component {
     render() {
         let searchForm = this.state.showForm ? (
             <form className="menu__search-form" method="POST">
-                <input className="menu__search-input" placeholder="Type and hit enter" />
+                <input className="menu__search-input" placeholder="Search Text" onChange={this.searchpage} />
             </form>
         ) : '';
 
