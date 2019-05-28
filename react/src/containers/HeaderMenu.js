@@ -11,7 +11,7 @@ class HeaderMenu extends Component {
       { label: 'About', link: 'about',active: this.props.activelink==='about'?true:false , showforloggedinUser:true, ShowfornologgedinUser: true },
       { label: 'Clients', link: 'clients', active: this.props.activelink==='clients'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Pets', link: 'pets', active: this.props.activelink==='pets'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
-      { label: 'Appointments', link: '#appointments' , active: this.props.activelink==='Appointments'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
+      { label: 'Appointments', link: 'appointments' , active: this.props.activelink==='Appointments'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Login', link: 'login', active: this.props.activelink==='Login'?true:false , showforloggedinUser:false, ShowfornologgedinUser: true },
       { label: 'Logout', link: 'logout',active: this.props.activelink==='Logout'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false }
 
