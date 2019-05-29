@@ -31,9 +31,9 @@ class Headermenu extends Component {
         });
     }
 
+    
     clickMenu = (linklabel) =>{      
        
-        debugger;
         console.log("came into click menu");
         this.setState({
             activemenutem: linklabel
@@ -42,12 +42,7 @@ class Headermenu extends Component {
     }
 
     render() {
-        let searchForm = this.state.showForm ? (
-            <form className="menu__search-form" method="POST">
-                <input className="menu__search-input" placeholder="Type and hit enter" />
-            </form>
-        ) : '';
-
+      
        
 
         let linksMarkup = this.props.links.map((link, index) => {
@@ -105,11 +100,7 @@ class Headermenu extends Component {
                     <ul className="menu__list">
                         {linksMarkup}
                     </ul>                    
-                    <button onClick={this.showForm.bind(this)} style={{
-                    backgroundImage: 'url(' + searchicon + ')'
-                    }} className="menu__search-button"></button>
-
-                    {searchForm}
+                    
                 </div>
             </nav>           
             
