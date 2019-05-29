@@ -17,6 +17,7 @@ export default class Appointments extends Component {
       this.setState({'modal': bool});
     }
 
+
     modalCallback = (bool, selectedDate, editableAppointment) => {
       if (selectedDate) {
       let day = selectedDate.getDate();
@@ -133,12 +134,13 @@ export default class Appointments extends Component {
           })
         });
         
+
         const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
           }
         });
-        
+ 
         const appointments = await response.json();
         console.log(appointments);
         this.setState({ 'appointments': appointments });
@@ -147,8 +149,6 @@ export default class Appointments extends Component {
         });
         this.setState({editableAppointment: []});
       }
-
-
 
       render() {
         return (

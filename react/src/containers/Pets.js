@@ -4,44 +4,53 @@ import PetList from '../components/PetList';
 
 export default class Pets extends Component {
   state = {
-    'pets': []
-    }
+    pets: []
+      }
+
 
   componentDidMount = async () => {
-    const response = await fetch('/api/pets', { method: 'GET' });
-    const pets = await response.json();
-    this.setState({ 'pets': pets });    
+    this.fetchPets();
   }
 
-  addPet = async (e) => {
-    e.preventDefault();
-    console.log('name', e.target.elements.name.value)
-    console.log('gender', e.target.elements.gender.value)
-    console.log('altered', e.target.elements.altered.value)
-
-    await fetch('/api/pets', {
-      method: "POST",
+  fetchPets = async (e) => {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "name": e.target.elements.name.value,
-        "gender" : e.target.elements.gender.value,
-        "altered": e.target.elements.altered.value,
-        "clientId": e.target.elements.clientId.value
-      })
-    });
+        'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+      }
+    })
     
-    const response = await fetch('/api/pets');
     const pets = await response.json();
-    this.setState({ 'pets': pets });
+    this.setState({ pets: pets });
   }
+
+  // addPet = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const petResponse = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization':`Bearer ${localStorage.getItem('JWT_TOKEN')}`
+  //       },
+  //       body: JSON.stringify({
+  //         "name": this.state.petForm.Data.name,
+  //         "gender" : this.state.petForm.gender,
+  //         "altered": this.state.petForm.altered,
+  //         "clientId": this.state.petForm.clientId
+  //     }) 
+  //   })
+  //   const pets = await petResponse.json();
+  //   this.setState({pets: pets});
+  //   } catch (error){
+  //     console.error(error)
+  //   }
+  // }
 
   render() {
     return (
-      <div>
-        <h1>Pets</h1>
-        <AddPetForm addPet={this.addPet}/>
+      <div className="App container">
+        <AddPetForm addPet={this.addPet}/>        
         <PetList pets={this.state.pets} />
       </div>
     )

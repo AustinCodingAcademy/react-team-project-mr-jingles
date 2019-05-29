@@ -23,4 +23,16 @@ create table users (
 	role varchar(255)
 );
 
+CREATE TABLE appointments (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+title NVARCHAR(255),
+date DATE,
+time TIME,
+notes NVARCHAR(600),
+client_id integer,
+pet_id integer, 
+FOREIGN KEY (client_id) REFERENCES clients(id)
+FOREIGN KEY (pet_id) REFERENCES pets(id)
+);
+
 insert into users values (null, 'admin', 'password', 'SUPER_ADMIN');
