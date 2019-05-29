@@ -8,6 +8,7 @@ import Clients from './components/Clients'
 import Pets from './containers/Pets'
 import Login from './containers/Login';
 import Appointments from './containers/Appointments';
+import Home from './components/home';
 
 class App extends React.Component{ 
 
@@ -23,6 +24,7 @@ class App extends React.Component{
         <Route exact path="/login" component={Login} />
         <Route exact path="/pets" component={Pets} />
         <Route exact path="/appointments" component={Appointments} />
+        <Route exact path="/home" component={Home} />
       </BrowserRouter>
       </div>
 

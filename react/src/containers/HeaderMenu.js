@@ -3,7 +3,6 @@ import Headermenu from '../components/headermenu';
 import logo from '../spot_on_light.png';
 
 
-
 class HeaderMenu extends Component {
   render= () => {
     let links = [
@@ -15,7 +14,7 @@ class HeaderMenu extends Component {
       { label: 'Logout', link: 'logout',active: this.props.activelink==='Logout'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false }
     ];
 return(
-      <Headermenu links={links} logo={logo}></Headermenu>       
+      <Headermenu links={links} logo={logo}></Headermenu>     
     )    
   }
 }
