@@ -9,30 +9,48 @@ export default class Appointments extends Component {
         'modal': false,
         'pets': [],
         'clients': [],
-        'selectedDate': ''
+        'selectedDate': '',
+        'editableAppointment': []
     }
 
     modalCallback = (bool) => {
       this.setState({'modal': bool});
     }
 
-    modalCallback = (bool, selectedDate) => {
+    modalCallback = (bool, selectedDate, editableAppointment) => {
+      if (selectedDate) {
+      let day = selectedDate.getDate();
+      let month = selectedDate.getMonth()+1;
+      let year = selectedDate.getFullYear();
+      let newDay = day.toString();
+      let newMonth = month.toString();
+      let newYear = year.toString();
+      if (newDay.length < 2) {
+        newDay = "0" + newDay
+      }
+
+      if (newMonth.length < 2) {
+        newMonth = "0" + newMonth
+      }
+      console.log(newYear + "-" + newMonth + "-" + newDay)
+      this.setState({'selectedDate': newYear + "-" + newMonth + "-" + newDay});
+      this.setState({'editableAppointment': editableAppointment});
+    }
       this.setState({'modal': bool});
-      this.setState({'selectedDate': selectedDate});
+      
     }
 
     componentDidMount = async () => {
       // appointments API call
-      const response = await fetch('/api/appointments', {
+      const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
       })
       const appointments = await response.json();
       this.setState({ 'appointments': appointments });
-      console.log(appointments);
       // pets API call
-      const petsResponse = await fetch('/api/pets', {
+      const petsResponse = await fetch('${process.env.REACT_APP_API}/api/pets', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
@@ -41,53 +59,81 @@ export default class Appointments extends Component {
       this.setState({ 'pets': pets });
         
 
-      const clientsResponse = await fetch('/api/clients', {
+      const clientsResponse = await fetch('${process.env.REACT_APP_API}/api/clients', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
       })
       const clients = await clientsResponse.json();
-      console.log(pets);
-      console.log(clients);
       this.setState({ 'clients': clients });
+    }
+
+    deleteAppointment = async(event) => {
+      console.log(event)
+      await fetch('${process.env.REACT_APP_API}/api/appointments/' + event.id, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+        },
+        
+      });
+      
+      const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+        }
+      });
+      
+      const resp = await response.json();
+      this.setState({
+        appointments: resp
+      })
+      this.setState({
+        modal: false
+      })
     }
 
       
 
       addAppointment = async (event) => {
+        console.log(event.time)
         // event.preventDefault();
-        console.log(event);
         let ownerID =0;
         let clientID = 0;
-        console.log(event.selectedClient);
         for (let i = 0; i < this.state.pets.length; i++) {
           if (this.state.pets[i].name == event.selectedClient) {
             clientID = this.state.pets[i].id;
           }
         }
-        console.log(event.selectedDate.getHours());
         for (let i = 0; i < this.state.clients.length; i++) {
           if (this.state.clients[i].name == event.selectedOwner) {
             ownerID = this.state.clients[i].id;
           }
         }
-        await fetch('/api/appointments', {
+        
+
+       
+        
+      
+        let time = event.selectedTime + ":00"
+        await fetch('${process.env.REACT_APP_API}/api/appointments', {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
           },
           body: JSON.stringify({
-            "title": "placeholder",
-            "date" : event.selectedDate.date,
-            "time": event.selectedDate.time,
-            "notes": "none",
+            "title": event.title,
+            "date" : event.selectedDate,
+            "time": time,
+            "notes": event.notes,
             "petId": clientID,
             "clientId": ownerID
           })
         });
         
-        const response = await fetch('/api/appointments', {
+        const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
           }
@@ -95,8 +141,11 @@ export default class Appointments extends Component {
         
         const appointments = await response.json();
         console.log(appointments);
-        // console.log(newAppointments)
-        // this.setState({ 'appointments': appointments });
+        this.setState({ 'appointments': appointments });
+        this.setState({
+          'modal': false
+        });
+        this.setState({editableAppointment: []});
       }
 
 
@@ -105,8 +154,8 @@ export default class Appointments extends Component {
         return (
           <div>
             <h1>Calendar</h1>
-            <Calendar appointments={this.state.appointments} modal = {this.state.modal} modalCallback={this.modalCallback}/>
-            <AddAppointment addAppointment={this.addAppointment} selectedDate = {this.state.selectedDate} clients={this.state.clients} pets={this.state.pets} modal={this.state.modal} modalCallback={this.modalCallback}/>
+            <Calendar appointments={this.state.appointments} editableAppointment={this.state.editableAppointment} modal = {this.state.modal} modalCallback={this.modalCallback}/>
+            <AddAppointment deleteAppointment ={this.deleteAppointment} addAppointment={this.addAppointment} editableAppointment={this.state.editableAppointment} selectedDate = {this.state.selectedDate} clients={this.state.clients} pets={this.state.pets} modal={this.state.modal} modalCallback={this.modalCallback}/>
           </div>
         )
       }
