@@ -53,7 +53,8 @@ render () {
             // set at componentDidMount
             events={this.props.appointments}
             // dateClick is called whenever a date that isn't an event is clicked
-            dateClick={() => this.props.modalCallback(true)}/>
+            // ={() => this.props.modalCallback(true)}
+            dateClick={this.handleDateClick}/>
         
 
 
@@ -64,29 +65,10 @@ render () {
 }
 
 
-confirmDate = arg => {
-    
-    // grab the current array of appointments
-    var newEvents = this.state.appointments.slice();
-
-    console.log(this.state.selectedOwner);
-    console.log(this.state.selectedDate);
-    // add the new event from the args
-    newEvents.push({title: this.state.selectedOwner, date: this.state.selectedDate});
-    // set the array to be the new newEvents array
-    this.setState({appointments:newEvents}, () => {
-        console.log(this.state.appointments);
-    });
-    
-    // close the modal
-    this.setState({modal:false});
-}
-
 handleDateClick = arg => {
     // open the modal
     // pick the selected date for the creation to use
-    this.props.modalCallback(true);
-    this.setState({selectedDate: arg.date});
+    this.props.modalCallback(true, arg.date);
 }
 
 }
