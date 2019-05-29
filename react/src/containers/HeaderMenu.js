@@ -8,7 +8,6 @@ class HeaderMenu extends Component {
   render= () => {
     let links = [
       { label: 'Home', link: 'home', active: this.props.activelink==='home'?true:false, showforloggedinUser:true, ShowfornologgedinUser: true  },
-      { label: 'About', link: 'about',active: this.props.activelink==='about'?true:false , showforloggedinUser:true, ShowfornologgedinUser: true },
       { label: 'Clients', link: 'clients', active: this.props.activelink==='clients'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Pets', link: 'pets', active: this.props.activelink==='pets'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
       { label: 'Appointments', link: 'appointments' , active: this.props.activelink==='Appointments'?true:false , showforloggedinUser:true, ShowfornologgedinUser: false },
