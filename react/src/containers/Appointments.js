@@ -43,7 +43,7 @@ export default class Appointments extends Component {
 
     componentDidMount = async () => {
       // appointments API call
-      const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
+      const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
@@ -51,7 +51,7 @@ export default class Appointments extends Component {
       const appointments = await response.json();
       this.setState({ 'appointments': appointments });
       // pets API call
-      const petsResponse = await fetch('${process.env.REACT_APP_API}/api/pets', {
+      const petsResponse = await fetch(`${process.env.REACT_APP_API}/api/pets`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
@@ -60,7 +60,7 @@ export default class Appointments extends Component {
       this.setState({ 'pets': pets });
         
 
-      const clientsResponse = await fetch('${process.env.REACT_APP_API}/api/clients', {
+      const clientsResponse = await fetch(`${process.env.REACT_APP_API}/api/clients`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
@@ -71,7 +71,7 @@ export default class Appointments extends Component {
 
     deleteAppointment = async(event) => {
       console.log(event)
-      await fetch('${process.env.REACT_APP_API}/api/appointments/' + event.id, {
+      await fetch(`${process.env.REACT_APP_API}/api/appointments/` + event.id, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default class Appointments extends Component {
         
       });
       
-      const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
+      const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
         }
@@ -112,13 +112,10 @@ export default class Appointments extends Component {
             ownerID = this.state.clients[i].id;
           }
         }
-        
-
-       
-        
+      
       
         let time = event.selectedTime + ":00"
-        await fetch('${process.env.REACT_APP_API}/api/appointments', {
+        await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
@@ -135,7 +132,7 @@ export default class Appointments extends Component {
         });
         
 
-        const response = await fetch('${process.env.REACT_APP_API}/api/appointments', {
+        const response = await fetch(`${process.env.REACT_APP_API}/api/appointments`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
           }

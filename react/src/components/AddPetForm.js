@@ -30,12 +30,6 @@ export default class AddPetForm extends Component {
      
     }
 
-    changeValue() {
-      this.setState({
-        dropDownValue: this.state.clients.name
-      });
-    }
-
     componentDidMount = async() => {
       const response = await fetch(`${process.env.REACT_APP_API}/api/clients`, {
         headers: {
@@ -45,6 +39,15 @@ export default class AddPetForm extends Component {
       
       const clients = await response.json();
       this.setState({ clients: clients });
+    }
+
+    changeValue(e) {
+      //let {newPetData}=this.state;
+      //newPetData.clientId= e.optionItems.id;
+      this.setState({
+        dropDownValue : e.currentTarget.textContent,
+        //newPetData
+      });
     }
 
     addPet = async (e) => {  
@@ -82,7 +85,7 @@ export default class AddPetForm extends Component {
     console.log(this.state.clients.length);
 
     let optionItems = this.state.clients.map((client) =>
-                <DropdownItem onClick={this.changeValue} key={client.id}> {client.name}</DropdownItem>
+                <DropdownItem onClick={this.changeValue.bind(this)} key={client.id}> {client.name}</DropdownItem>
             );
     return (
       <div>
@@ -116,16 +119,11 @@ export default class AddPetForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="clientId"></Label>
-          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle.bind(this)}  name="clientId" id="clientId" value={this.state.newPetData.clientId} onChange= {(e)=>{
-            let {newPetData}=this.state;
-            newPetData.clientId= e.target.value;
-            this.setState({newPetData});
-          }}>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle.bind(this)}  name="clientId" id="clientId" value={this.state.newPetData.clientId}>
             <DropdownToggle caret>
             {this.state.dropDownValue}
         </DropdownToggle>
           <DropdownMenu>
-           <DropdownItem header>Choose Client</DropdownItem>
             {optionItems}
             </DropdownMenu>
           </Dropdown>
