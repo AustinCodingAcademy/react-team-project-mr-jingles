@@ -1,7 +1,6 @@
 import React from 'react';
 import '../App.css';
-import {Table, Button,Collapse} from 'reactstrap'
-
+import {Table, Button, InputGroup,   InputGroupAddon, Input } from 'reactstrap'
 import Addclient from './Addclient'
 import Editclient from './Editclient'
 import PetsforClient  from './PetsforClient'
@@ -9,6 +8,7 @@ import PetsforClient  from './PetsforClient'
 class Clients extends React.Component{ 
     state ={
         clients:[],
+        allclients:[],
         loggedIn: !!localStorage.getItem('JWT_TOKEN'),
         editclientModal:false,
         editclientData:{id:'', name:'', phoneNumber:'', address:''},
@@ -34,6 +34,7 @@ fetchClients = async () => {
   localStorage.setItem('clientsforPetForm', JSON.stringify(clientsfromapi));
   console.log(clientsfromapi.length); 
   this.setState({ clients: clientsfromapi }); 
+  this.setState({ allclients: clientsfromapi }); 
 }
 
 fetchpets = async (id) => {   
@@ -109,6 +110,26 @@ deleteClient = async(id) =>
     this.fetchClients();
 }
 
+searchpage= (e) =>
+    {   
+        var searchvalue=e.target.value;  
+        var filteredclients=[];
+            if(searchvalue!=="")
+            {
+                filteredclients= this.state.allclients.filter((client) =>
+                {
+                
+                
+                    var flag=client.name.toLowerCase().search(searchvalue);
+                    if(flag===0)
+                    return client;
+                });
+           }
+           else
+                filteredclients=this.state.allclients;
+            this.setState({ clients: filteredclients });
+    }
+
 
 render() {
 
@@ -141,9 +162,16 @@ render() {
     )
   });
 
+ 
+
 return (
   
   <div className="App container"> 
+      <InputGroup className="searchtext">        
+        <Input placeholder="Search for... " onChange={this.searchpage}  className="searchtext"/>
+        <InputGroupAddon addonType="append"><span class="g-search-button">    
+        </span></InputGroupAddon>
+      </InputGroup>
     <Addclient thisobj={this}/>
     <Editclient thisobj={this} editclientModal={this.state.editclientModal}></Editclient>       
     <Table striped borderless hover variant="dark">

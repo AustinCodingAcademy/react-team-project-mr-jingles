@@ -45,7 +45,7 @@ export default class Login extends Component {
           <Label for="examplePassword" className="mr-sm-2">Password</Label>
           <Input type="password" name="password" id="examplePassword" placeholder="don't tell!" />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button>Signin</Button>
       </Form>
     )
   }

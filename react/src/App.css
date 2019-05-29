@@ -21,7 +21,7 @@
     list-style-type: none;
     padding: 0;
     height: 100%;   
-    width: 90%;
+    width: 100%;
     margin: 0;
     margin-right: 40px;
 }
@@ -122,6 +122,27 @@
   .App-link {
     color: #61dafb;
   }
+
+  .g-search-button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;  
+    position: relative;
+    left: -30px;
+    top: 10px; 
+    background-repeat:no-repeat;
+    background-image: url('icons8-search-48.png');
+  }
+
+  .searchtext {
+    width: 20%!important; 
+    position: left;
+    min-width: 0; 
+    -webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+  }
+ 
   
   @keyframes App-logo-spin {
     from {
