@@ -11,7 +11,7 @@ toggleeditclientModal = async(parentobj) =>
 }    
     updateclient = async(parentobj) =>
     {
-        await fetch('/api/clients', {
+        await fetch(`${process.env.REACT_APP_API}/api/clients`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json',

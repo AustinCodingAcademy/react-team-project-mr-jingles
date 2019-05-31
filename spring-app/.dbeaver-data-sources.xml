@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="sqlite_jdbc-16abcadfaeb-1641e749431846dc" provider="generic" driver="sqlite_jdbc" name="SQLite - spring-app.db" save-password="true" read-only="false">
+		<connection server="" database="C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" url="jdbc:sqlite:C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" type="dev"/>
+	</data-source>
+	<data-source id="sqlite_jdbc-16aebccdbc7-6be6b8e8e19b1997" provider="generic" driver="sqlite_jdbc" name="SQLite - spring-app.db 2" save-password="true" read-only="false">
+		<connection server="" database="C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" url="jdbc:sqlite:C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" type="dev"/>
+	</data-source>
+	<data-source id="sqlite_jdbc-16aebcd5613-31af5a569e2796d0" provider="generic" driver="sqlite_jdbc" name="SQLite - spring-app.db 3" save-password="true" read-only="false">
+		<connection server="" database="C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" url="jdbc:sqlite:C:\Users\matthew_hauser\github\react-team-project-mr-jingles\spring-app\src\main\resources\spring-app.db" type="dev"/>
+	</data-source>
+	<filters/>
+</data-sources>

@@ -3,17 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^4.1.0",
+    "@fullcalendar/daygrid": "^4.1.0",
+    "@fullcalendar/interaction": "^4.1.0",
+    "@fullcalendar/react": "^4.1.0",
+    "@fullcalendar/timegrid": "^4.1.0",
     "availity-reactstrap-validation": "^2.5.2",
     "bootstrap": "^4.3.1",
+    "env-cmd": "^9.0.1",
+    "fullcalendar": "^3.10.0",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.8.6",  
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-search-box": "^2.0.1",
     "reactstrap": "^8.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd react-scripts start",
     "build": "react-scripts build",
+    "deploy": "env-cmd -f ./.env.staging npm run build && cp build/index.html build/404.html && gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -26,5 +36,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "homepage": "https://austincodingacademy.github.io/react-team-project-mr-jingles"
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import '../App.css';
-import {Table, Button,Collapse} from 'reactstrap'
-
+import {Table, Button, InputGroup,   InputGroupAddon, Input } from 'reactstrap'
 import Addclient from './Addclient'
 import Editclient from './Editclient'
 import PetsforClient  from './PetsforClient'
@@ -9,6 +8,7 @@ import PetsforClient  from './PetsforClient'
 class Clients extends React.Component{ 
     state ={
         clients:[],
+        allclients:[],
         loggedIn: !!localStorage.getItem('JWT_TOKEN'),
         editclientModal:false,
         editclientData:{id:'', name:'', phoneNumber:'', address:''},
@@ -24,14 +24,17 @@ componentDidMount = async() => {
 
 fetchClients = async () => {   
   console.log(this.state.loggedIn);
-  const response = await fetch('/api/clients', {
+  const response = await fetch(`${process.env.REACT_APP_API}/api/clients`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
     }
   })
+  
   const clientsfromapi = await response.json();
+  localStorage.setItem('clientsforPetForm', JSON.stringify(clientsfromapi));
   console.log(clientsfromapi.length); 
-  this.setState({ clients: clientsfromapi });
+  this.setState({ clients: clientsfromapi }); 
+  this.setState({ allclients: clientsfromapi }); 
 }
 
 fetchpets = async (id) => {   
@@ -44,7 +47,7 @@ fetchpets = async (id) => {
 
 fetchpetforclient = async(id) =>
 {
-  const response = await fetch('/api/pets/client/'+id, {
+  const response = await fetch(`${process.env.REACT_APP_API}/api/pets/client/`+id, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
     }
@@ -52,6 +55,7 @@ fetchpetforclient = async(id) =>
   const pets = await response.json();
   this.setState({ pets: pets });
 
+  
 }
 
 
@@ -80,7 +84,7 @@ checkClienttobedeleted = async (id) =>{
 deleteClientsandAssociatedPets = async(id) =>
 { 
   this.state.pets.map((pet) => async() => {
-    await fetch('/api/pets/' + pet.id, {
+    await fetch(`${process.env.REACT_APP_API}/api/pets/` + pet.id, {
       method: 'DELETE' ,
        headers: {
         'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
@@ -95,7 +99,7 @@ deleteClientsandAssociatedPets = async(id) =>
 
 deleteClient = async(id) =>
 {
-  await fetch('/api/clients/' + id, {
+  await fetch(`${process.env.REACT_APP_API}/api/clients/` + id, {
     method: 'DELETE' ,
        headers: {
         'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
@@ -105,6 +109,26 @@ deleteClient = async(id) =>
     }).catch(err => err);
     this.fetchClients();
 }
+
+searchpage= (e) =>
+    {   
+        var searchvalue=e.target.value;  
+        var filteredclients=[];
+            if(searchvalue!=="")
+            {
+                filteredclients= this.state.allclients.filter((client) =>
+                {
+                
+                
+                    var flag=client.name.toLowerCase().search(searchvalue);
+                    if(flag===0)
+                    return client;
+                });
+           }
+           else
+                filteredclients=this.state.allclients;
+            this.setState({ clients: filteredclients });
+    }
 
 
 render() {
@@ -138,9 +162,16 @@ render() {
     )
   });
 
+ 
+
 return (
   
   <div className="App container"> 
+      <InputGroup className="searchtext">        
+        <Input placeholder="Search for... " onChange={this.searchpage}  className="searchtext"/>
+        <InputGroupAddon addonType="append"><span class="g-search-button">    
+        </span></InputGroupAddon>
+      </InputGroup>
     <Addclient thisobj={this}/>
     <Editclient thisobj={this} editclientModal={this.state.editclientModal}></Editclient>       
     <Table striped borderless hover variant="dark">

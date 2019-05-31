@@ -13,7 +13,7 @@ export default class Login extends Component {
     // e.target.elements.username.value => 'kevin'
     // e.target.elements.password.value => 'hello123'
     console.log(e);
-    const response = await fetch('/api/login', {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export default class Login extends Component {
     console.log(token);
     localStorage.setItem('JWT_TOKEN', token);
     this.setState({ loggedIn: true });   
-    window.location.href = '/'
+    window.location.href = 'home';
   }
 
   render() {
@@ -45,7 +45,7 @@ export default class Login extends Component {
           <Label for="examplePassword" className="mr-sm-2">Password</Label>
           <Input type="password" name="password" id="examplePassword" placeholder="don't tell!" />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button>Signin</Button>
       </Form>
     )
   }

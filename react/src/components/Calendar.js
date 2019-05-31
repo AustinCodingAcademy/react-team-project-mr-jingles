@@ -12,18 +12,15 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Calendar extends React.Component{ 
 state = {
-    // array holding all appointments
-    appointments:[],
-    // for the modal, false since it's closed by default
-    modal: false,
     // blank variables for date and owner chosen in modal
     selectedDate: '',
-    selectedOwner: ''
+    selectedOwner: '',
+    editableAppointment: []
 }
 
 // empty for now
 componentDidMount() {
-    
+  
 }
 
 toggle = arg => {
@@ -40,7 +37,6 @@ handleChange(event) {
     const value = target.value
     // get the name of the target
     const name = target.name;
-    console.log(value);
     // update the state
     this.setState({
       [name]: value
@@ -55,11 +51,11 @@ render () {
         <React.Fragment>
         <FullCalendar defaultView="dayGridMonth" plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} 
             // set at componentDidMount
-            events={this.state.appointments}
+            events={this.props.appointments}
             // dateClick is called whenever a date that isn't an event is clicked
-                dateClick={this.handleDateClick}/>
-        
-        <AddAppointment modal={this.state.modal}/>
+            // ={() => this.props.modalCallback(true)}
+            eventClick={this.handleEventClick}
+            dateClick={this.handleDateClick}/>
 
 
         </React.Fragment>
@@ -68,31 +64,33 @@ render () {
     
 }
 
+compareDates(arg1, arg2) {
+    // arg1 is formatted as "YYYY-MM-DD", arg2 is a Javascript Date format
+    if (Number(arg1.substring(arg1.length - 2, arg1.length)) == arg2.getDate()) {
+        return true;
+    }
+    return false;
+}
 
-confirmDate = arg => {
-    
-    // grab the current array of appointments
-    var newEvents = this.state.appointments.slice();
-
-    console.log(this.state.selectedOwner);
-    console.log(this.state.selectedDate);
-    // add the new event from the args
-    newEvents.push({title: this.state.selectedOwner, date: this.state.selectedDate});
-    // set the array to be the new newEvents array
-    this.setState({appointments:newEvents}, () => {
-        console.log(this.state.appointments);
-    });
-    
-    // close the modal
-    this.setState({modal:false});
+handleEventClick = arg => {
+    // find the event in the database
+    for (let i = 0; i < this.props.appointments.length; i++) {
+        if (this.props.appointments[i].title == arg.event.title) {
+            if (this.compareDates(this.props.appointments[i].date, arg.event.start)) {
+                console.log(arg.event.start)
+                this.setState({
+                    editableAppointment: this.props.appointments[i]
+                }, () =>this.props.modalCallback(true, arg.event.start, this.state.editableAppointment));
+                
+            }
+        }
+    }
 }
 
 handleDateClick = arg => {
     // open the modal
-    this.setState({modal:true});
     // pick the selected date for the creation to use
-    AddAppointment.setState({modal:true});
-    this.setState({selectedDate: arg.date});
+    this.props.modalCallback(true, arg.date, this.props.editableAppointment);
 }
 
 }
