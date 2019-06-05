@@ -12,23 +12,23 @@ self.__precacheManifest = [
     "url": "/react-team-project-mr-jingles/static/js/runtime~main.1beb3bbb.js"
   },
   {
-    "revision": "4fc07a45401ca4918c56",
-    "url": "/react-team-project-mr-jingles/static/js/main.ad95663c.chunk.js"
+    "revision": "593b8b1a1e5bfb0a30b6",
+    "url": "/react-team-project-mr-jingles/static/js/main.6ff8b325.chunk.js"
   },
   {
-    "revision": "2b6bafc1ba66ed1833c7",
-    "url": "/react-team-project-mr-jingles/static/js/2.0739ab82.chunk.js"
+    "revision": "1e7aa96599ce5e1586e5",
+    "url": "/react-team-project-mr-jingles/static/js/2.a7780841.chunk.js"
   },
   {
-    "revision": "4fc07a45401ca4918c56",
-    "url": "/react-team-project-mr-jingles/static/css/main.adc5b148.chunk.css"
+    "revision": "593b8b1a1e5bfb0a30b6",
+    "url": "/react-team-project-mr-jingles/static/css/main.dca4b244.chunk.css"
   },
   {
-    "revision": "2b6bafc1ba66ed1833c7",
-    "url": "/react-team-project-mr-jingles/static/css/2.1bffea69.chunk.css"
+    "revision": "1e7aa96599ce5e1586e5",
+    "url": "/react-team-project-mr-jingles/static/css/2.7cd8dcd3.chunk.css"
   },
   {
-    "revision": "ab1c58262ba6274bf0b4d28c0518a9c7",
+    "revision": "9f8641c23a429e7e5fac3d3472156cb2",
     "url": "/react-team-project-mr-jingles/index.html"
   }
 ];
